@@ -1,36 +1,52 @@
 @echo off
 chcp 65001 >nul
+cd /d "%~dp0"
+if exist "hubproject-main\.git" cd "hubproject-main"
+
 echo ========================================================
-echo   ระบบอัพโหลดโค้ดขึ้น GitHub (66111567-beep/hubproject)
+echo   Upload to GitHub : 66111567-beep/hubproject
 echo ========================================================
 echo.
 
-echo [1/3] ตรวจสอบสถานะ Git...
+echo [1] Checking Git status...
 git status
 echo.
 
-echo [2/3] กำลัง Push ขึ้น GitHub Branch main...
+echo [2] Pushing to GitHub main branch...
 git push origin main
+if %ERRORLEVEL% equ 0 goto SUCCESS
 
-if %ERRORLEVEL% equ 0 (
-    echo.
-    echo ========================================================
-    echo   [สำเร็จ] อัพโหลดโค้ดขึ้น GitHub เรียบร้อยแล้ว!
-    echo   URL: https://github.com/66111567-beep/hubproject
-    echo ========================================================
-) else (
-    echo.
-    echo ========================================================
-    echo   [แจ้งเตือน] ไม่สามารถ Push ได้เนื่องจากสิทธิ์ GitHub
-    echo   (Windows อาจจำบัญชี GitHub อื่นอยู่)
-    echo ========================================================
-    echo.
-    echo หากต้องการใช้ GitHub Personal Access Token (PAT):
-    set /p GITHUB_TOKEN="วาง GitHub Token ของคุณที่นี่ (หรือกด Enter เพื่อข้าม): "
-    if not "%GITHUB_TOKEN%"=="" (
-        git push https://%GITHUB_TOKEN%@github.com/66111567-beep/hubproject.git main
-    )
-)
+echo.
+echo ========================================================
+echo   [Notice] Cannot push with default account
+echo   (Windows may have cached another GitHub account)
+echo ========================================================
+echo.
+echo Please enter your GitHub Personal Access Token (PAT):
+set /p TOKEN="GitHub Token: "
+if "%TOKEN%"=="" goto FAILED
 
+echo.
+echo Pushing with Token...
+git push https://%TOKEN%@github.com/66111567-beep/hubproject.git main
+if %ERRORLEVEL% equ 0 goto SUCCESS
+goto FAILED
+
+:SUCCESS
+echo.
+echo ========================================================
+echo   [SUCCESS] Uploaded to GitHub successfully!
+echo   URL: https://github.com/66111567-beep/hubproject
+echo ========================================================
+goto END
+
+:FAILED
+echo.
+echo ========================================================
+echo   [FAILED] Push failed. Please check your token or rights.
+echo ========================================================
+goto END
+
+:END
 echo.
 pause
