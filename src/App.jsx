@@ -4,6 +4,7 @@ import Sidebar from "./components/sidebar";
 import Home from "./pages/home";
 import Game2 from "./pages/game2";
 import Game3 from "./pages/game3";
+import LocationExpenseTracker from "./pages/LocationExpenseTracker";
 
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,8 +19,11 @@ export default function App() {
         return "Mini Game 2 • Neon Reflex Duel";
       case "/game3":
         return "Mini Game 3 • Neon Pulse 2048";
+      case "/expense":
+      case "/location-tracker":
+        return "ระบบบันทึกรายรับ-รายจ่าย • Location & IndexedDB";
       default:
-        return "IG342 Game Hub";
+        return "IG342 Mobile App Hub";
     }
   };
 
@@ -56,10 +60,20 @@ export default function App() {
             </div>
 
             {/* Top Navigation Links */}
-            <nav className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm font-medium">
+            <nav className="flex items-center space-x-1.5 sm:space-x-3 text-xs sm:text-sm font-medium">
+              <Link
+                to="/expense"
+                className={`px-2.5 sm:px-3 py-1.5 rounded-lg transition ${
+                  location.pathname === "/expense" || location.pathname === "/location-tracker"
+                    ? "bg-blue-50 text-blue-600 font-semibold border border-blue-200"
+                    : "text-gray-600 hover:text-blue-500 hover:bg-gray-50"
+                }`}
+              >
+                📍 รายรับ-รายจ่าย
+              </Link>
               <Link
                 to="/"
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-2 sm:px-3 py-1.5 rounded-lg transition ${
                   location.pathname === "/" || location.pathname === "/game1"
                     ? "bg-indigo-50 text-indigo-600 font-semibold"
                     : "text-gray-600 hover:text-indigo-500"
@@ -69,7 +83,7 @@ export default function App() {
               </Link>
               <Link
                 to="/game2"
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-2 sm:px-3 py-1.5 rounded-lg transition ${
                   location.pathname === "/game2"
                     ? "bg-emerald-50 text-emerald-600 font-semibold"
                     : "text-gray-600 hover:text-emerald-500"
@@ -79,7 +93,7 @@ export default function App() {
               </Link>
               <Link
                 to="/game3"
-                className={`px-3 py-1.5 rounded-lg transition ${
+                className={`px-2 sm:px-3 py-1.5 rounded-lg transition ${
                   location.pathname === "/game3"
                     ? "bg-amber-50 text-amber-600 font-semibold"
                     : "text-gray-600 hover:text-amber-500"
@@ -88,8 +102,8 @@ export default function App() {
                 🧩 Game 3
               </Link>
 
-              <span className="hidden md:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200">
-                Workshop 5-1 (10 คะแนน)
+              <span className="hidden xl:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200">
+                Workshop 5-1
               </span>
             </nav>
           </div>
@@ -102,6 +116,8 @@ export default function App() {
             <Route path="/game1" element={<Home />} />
             <Route path="/game2" element={<Game2 />} />
             <Route path="/game3" element={<Game3 />} />
+            <Route path="/expense" element={<LocationExpenseTracker />} />
+            <Route path="/location-tracker" element={<LocationExpenseTracker />} />
           </Routes>
         </main>
 

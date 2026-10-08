@@ -13,6 +13,15 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   const navItems = [
     {
+      to: "/expense",
+      title: "Location Expense",
+      subtitle: "IndexedDB Tracker",
+      desc: "บันทึกรายรับ-รายจ่ายตามพิกัด GPS",
+      icon: "📍",
+      badge: "IndexedDB + GPS",
+      badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30"
+    },
+    {
       to: "/",
       title: "Mini Game 1",
       subtitle: "Cyber Memory Matrix",
@@ -95,7 +104,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         {/* Navigation Section */}
         <div className="px-4 mt-6">
           <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-2 mb-3">
-            Select Game / เลือกเกม (3 หน้า)
+            Navigation / เมนูระบบ (4 หน้า)
           </div>
         </div>
 

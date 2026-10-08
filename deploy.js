@@ -1,5 +1,4 @@
 import { execSync } from 'child_process';
-import { existsSync } from 'fs';
 
 // Guarantee Git is in PATH regardless of how the terminal was launched
 const gitCmdPath = 'C:\\Program Files\\Git\\cmd';
